@@ -115,7 +115,7 @@ std::size_t RefineLastFastSize(std::size_t low, std::size_t high, const auto& is
 }
 
 std::size_t LastFastSize(std::size_t stride) {
-  constexpr double SlowdownFactor = 1.6;
+  constexpr double SlowdownFactor = 1.2;
   constexpr std::size_t SizeBegin = 2;
   constexpr std::size_t SizeEnd = 32768;
 
@@ -143,7 +143,7 @@ struct Plateau final {
 };
 
 Plateau FindCachePlateau() {
-  constexpr std::size_t StrideBegin = 256 / sizeof(Cell);
+  constexpr std::size_t StrideBegin = 16 / sizeof(Cell);
   constexpr std::size_t StrideEnd = (std::size_t{256} * KiB) / sizeof(Cell);
 
   std::vector<Plateau> plateaus;
@@ -182,8 +182,8 @@ std::size_t CacheCapacity() {
 std::size_t CacheLineSize() {
   constexpr std::size_t LineBegin = 32;
   constexpr std::size_t LineEnd = 1024;
-  constexpr double DecreaseFactor = 0.95;
-  constexpr double IncreaseFactor = 1.3;
+  constexpr double DecreaseFactor = 0.80;
+  constexpr double IncreaseFactor = 1.20;
 
   bool is_decreased = false;
   std::size_t candidate = 0;
