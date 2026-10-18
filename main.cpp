@@ -80,7 +80,7 @@ auto Median(auto samples) {
 }
 
 double ReadLatency(std::size_t stride, std::size_t size) {
-  constexpr std::size_t Samples = 5;
+  constexpr std::size_t Samples = 8;
   constexpr std::size_t WarmupOps = 1'000;
   constexpr std::size_t TimedOps = 1'000'000;
 

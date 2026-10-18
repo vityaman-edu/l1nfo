@@ -25,19 +25,49 @@ A tool for L1 CPU cache charactersitcs inference.
 ## Build & Run
 
 ```bash
-cmake -B build && cmake --build build && ./build/l1nfo
+cmake --build build --config Release && cmake -B build && cmake --build build
 ```
 
 ## Declared Characteristics
 
-```bash
-sysctl -n hw.l1dcachesize
-# 65536
+### MacOS arm64
 
-sysctl -n hw.cachelinesize
-# 128
+```bash
+sysctl hw.cachelinesize hw.l1dcachesize hw.perflevel1.l1dcachesize hw.perflevel0.l1dcachesize 
+# hw.cachelinesize: 128
+# hw.l1dcachesize: 65536
+# hw.perflevel1.l1dcachesize: 65536
+# hw.perflevel0.l1dcachesize: 131072
+```
+
+### Linux x64_86
+
+```bash
+lscpu --cache
+# NAME ONE-SIZE ... WAYS ... COHERENCY-SIZE
+# L1d       32K        8                 64
+# ...
 ```
 
 ## Measured Characteristics
 
-TODO
+### MacOS arm64
+
+```bash
+./build/l1nfo
+# l1nfo
+#   Capacity is 128 KiB
+#   Line size is 64 B
+#   Associativity is 8
+# NB. Guess, this is because of the P-core.
+```
+
+### Linux x64_86
+
+```bash
+./build/l1nfo
+# l1nfo
+#   Capacity is 32 KiB
+#   Line size is 64 B
+#   Associativity is 8
+```
